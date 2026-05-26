@@ -2,117 +2,153 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Goals & Scorecard 2026</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#0e0e0e;--paper:#f5f2ed;--accent:#c8553d;--muted:#8a8580;--border:#d8d4cd;--card:#ffffff;--green:#2c5f4a;--amber:#b5860d;--red:#c8553d;--blue:#2a4a7f}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px}
-header{padding:1.25rem 2rem 1rem;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--border);background:var(--card)}
-.logo{font-family:'DM Serif Display',serif;font-size:1.6rem;letter-spacing:-0.02em}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;min-height:100vh}
+
+/* HEADER */
+header{padding:1rem 1.25rem .75rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--card);position:sticky;top:0;z-index:100}
+.logo{font-family:'DM Serif Display',serif;font-size:1.3rem;letter-spacing:-0.02em}
 .logo em{color:var(--accent);font-style:italic}
-.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
-.header-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-align:right;line-height:1.8}
-.sync-status{display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;border-radius:99px;border:1px solid var(--border);cursor:pointer;background:var(--card);color:var(--muted);transition:all .2s}
-.sync-status:hover{border-color:var(--accent);color:var(--accent)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.header-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-align:right;line-height:1.6;display:none}
+@media(min-width:600px){.header-meta{display:block}}
+.sync-status{display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;border-radius:99px;border:1px solid var(--border);cursor:pointer;background:var(--card);color:var(--muted)}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .3s}
 .sync-dot.syncing{background:var(--amber);animation:pulse .8s infinite}
 .sync-dot.ok{background:var(--green)}
 .sync-dot.error{background:var(--red)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-nav{display:flex;padding:0 2rem;border-bottom:1px solid var(--border);background:var(--card)}
-nav button{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;padding:12px 14px 10px;cursor:pointer;transition:all .15s}
-nav button:hover{color:var(--ink)}
+
+/* NAV */
+nav{display:flex;padding:0;border-bottom:1px solid var(--border);background:var(--card);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:57px;z-index:99}
+nav::-webkit-scrollbar{display:none}
+nav button{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;padding:11px 13px 9px;cursor:pointer;white-space:nowrap;flex-shrink:0}
 nav button.active{color:var(--ink);font-weight:500;border-bottom-color:var(--accent)}
-main{padding:1.5rem 2rem;max-width:860px}
+
+/* MAIN */
+main{padding:1.25rem;max-width:860px;margin:0 auto}
 .section{display:none}.section.active{display:block}
-.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.75rem}
-.strip-cell{background:var(--card);padding:1rem 1.25rem}
-.strip-cell .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;font-family:'DM Mono',monospace}
-.strip-cell .val{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1}
-.strip-cell .sub{font-size:11px;color:var(--muted);margin-top:3px}
-.sec-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.1rem}
-.sec-title{font-family:'DM Serif Display',serif;font-size:1.3rem}
+
+/* STRIP */
+.strip{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem}
+@media(min-width:600px){.strip{grid-template-columns:repeat(4,1fr)}}
+.strip-cell{background:var(--card);padding:.85rem 1rem}
+.strip-cell .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;font-family:'DM Mono',monospace}
+.strip-cell .val{font-family:'DM Serif Display',serif;font-size:1.8rem;line-height:1}
+.strip-cell .sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* SEC HEAD */
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.sec-title{font-family:'DM Serif Display',serif;font-size:1.2rem}
+
+/* TABLE */
 table.gt{width:100%;border-collapse:collapse}
-table.gt th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-family:'DM Mono',monospace;color:var(--muted);padding:0 10px 8px 0;text-align:left;border-bottom:1px solid var(--border);font-weight:400}
-table.gt td{padding:12px 10px 12px 0;border-bottom:1px solid var(--border);vertical-align:middle}
+table.gt th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-family:'DM Mono',monospace;color:var(--muted);padding:0 8px 8px 0;text-align:left;border-bottom:1px solid var(--border);font-weight:400}
+table.gt td{padding:10px 8px 10px 0;border-bottom:1px solid var(--border);vertical-align:middle;font-size:13px}
 table.gt tr:last-child td{border-bottom:none}
-.gname{font-weight:500;margin-bottom:2px}.garea{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace}
-.pbar{height:4px;background:#e8e4de;border-radius:99px;overflow:hidden;margin-bottom:3px;width:110px}
+.gname{font-weight:500;margin-bottom:2px;font-size:13px}
+.garea{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace}
+.pbar{height:4px;background:#e8e4de;border-radius:99px;overflow:hidden;margin-bottom:3px;width:80px}
+@media(min-width:600px){.pbar{width:110px}}
 .pfill{height:100%;border-radius:99px}
 .plbl{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted)}
-.badge{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;padding:3px 7px;border-radius:3px;letter-spacing:.04em}
+.badge{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;padding:3px 6px;border-radius:3px;letter-spacing:.03em}
 .b-good{background:#e8f4f0;color:var(--green)}.b-track{background:#e8ecf4;color:var(--blue)}.b-behind{background:#fce8e4;color:var(--red)}.b-risk{background:#fef5e4;color:var(--amber)}
-.week-nav{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
-.week-nav button{width:28px;height:28px;border:1px solid var(--border);background:var(--card);border-radius:4px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center}
-.week-nav button:hover{background:var(--border)}
-.wlbl{font-family:'DM Mono',monospace;font-size:13px;min-width:140px}
-.log-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.25rem}
-.log-cell{background:var(--card);padding:.9rem 1.1rem}
-.log-metric{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center}
+
+/* WEEK NAV */
+.week-nav{display:flex;align-items:center;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.week-nav button{width:36px;height:36px;border:1px solid var(--border);background:var(--card);border-radius:6px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:16px}
+.wlbl{font-family:'DM Mono',monospace;font-size:12px;min-width:120px}
+select{font-family:'DM Mono',monospace;font-size:11px;padding:5px 7px;border:1px solid var(--border);border-radius:4px;background:var(--paper);color:var(--ink);cursor:pointer;height:36px}
+
+/* LOG GRID */
+.log-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1rem}
+@media(min-width:500px){.log-grid{grid-template-columns:repeat(3,1fr)}}
+.log-cell{background:var(--card);padding:.85rem 1rem}
+.log-metric{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center}
 .log-row{display:flex;align-items:center;gap:8px}
 .log-tgt{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace}
-.log-input{width:48px;padding:4px;font-size:14px;font-family:'DM Mono',monospace;border:1px solid var(--border);border-radius:4px;background:var(--paper);color:var(--ink);text-align:center;font-weight:500}
+.log-input{width:52px;padding:6px;font-size:16px;font-family:'DM Mono',monospace;border:1px solid var(--border);border-radius:6px;background:var(--paper);color:var(--ink);text-align:center;font-weight:500}
 .log-input:focus{outline:none;border-color:var(--accent);background:var(--card)}
-.sbar{height:3px;background:#e8e4de;border-radius:99px;overflow:hidden;margin-top:4px}
+.sbar{height:3px;background:#e8e4de;border-radius:99px;overflow:hidden;margin-top:5px}
 .sfill{height:100%;border-radius:99px;transition:width .3s}
 .remove-metric{background:none;border:none;cursor:pointer;color:var(--border);font-size:12px;padding:0}
 .remove-metric:hover{color:var(--red)}
-.score-row{display:flex;align-items:center;gap:16px;padding:1.25rem;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:1.25rem}
-.score-circle{width:64px;height:64px;border-radius:50%;border:2px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.4rem;flex-shrink:0}
-.score-detail{font-size:13px;color:var(--muted);line-height:1.8}
+
+/* SCORE ROW */
+.score-row{display:flex;align-items:center;gap:12px;padding:1rem;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:1.25rem}
+.score-circle{width:60px;height:60px;border-radius:50%;border:2px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.3rem;flex-shrink:0}
+.score-detail{font-size:12px;color:var(--muted);line-height:1.8;flex:1}
 .score-detail strong{color:var(--ink);font-weight:500}
-.trend-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.1rem}
-.trend-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:.9rem}
-.goal-card{border:1px solid var(--border);border-radius:8px;padding:1.1rem;background:var(--card);margin-bottom:9px}
+.energy-wrap{text-align:center;flex-shrink:0}
+.energy-label{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.energy-input{width:52px;padding:6px;font-size:16px;font-family:'DM Mono',monospace;border:1px solid var(--border);border-radius:6px;background:var(--paper);color:var(--ink);text-align:center}
+.energy-input:focus{outline:none;border-color:var(--accent)}
+
+/* TREND */
+.trend-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.trend-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:.75rem}
+
+/* GOAL CARDS */
+.goal-card{border:1px solid var(--border);border-radius:8px;padding:1rem;background:var(--card);margin-bottom:8px}
 .goal-card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.prog-input{width:46px;padding:3px 5px;font-size:12px;font-family:'DM Mono',monospace;border:1px solid var(--border);border-radius:3px;background:var(--paper);color:var(--ink);text-align:center}
-.del-btn{background:none;border:none;color:var(--border);cursor:pointer;font-size:14px;padding:2px 5px;border-radius:3px}
-.del-btn:hover{color:var(--red);background:#fce8e4}
-.add-btn{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:var(--accent);background:none;border:1px dashed var(--border);padding:8px;border-radius:4px;cursor:pointer;width:100%;margin-top:8px;font-family:'DM Sans',sans-serif}
-.add-btn:hover{border-color:var(--accent);background:#fce8e4}
+.prog-input{width:48px;padding:4px 5px;font-size:13px;font-family:'DM Mono',monospace;border:1px solid var(--border);border-radius:3px;background:var(--paper);color:var(--ink);text-align:center}
+.del-btn{background:none;border:none;color:var(--border);cursor:pointer;font-size:16px;padding:4px 6px;border-radius:4px;line-height:1}
+.del-btn:active{color:var(--red);background:#fce8e4}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:var(--accent);background:none;border:1px dashed var(--border);padding:10px;border-radius:6px;cursor:pointer;width:100%;margin-top:8px;font-family:'DM Sans',sans-serif}
+
+/* VISION */
 .vision-grid{background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.vision-item{background:var(--card);padding:1rem 1.25rem;display:grid;grid-template-columns:80px 1fr auto;gap:14px;align-items:center;border-bottom:1px solid var(--border)}
+.vision-item{background:var(--card);padding:.9rem 1rem;display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;border-bottom:1px solid var(--border)}
 .vision-item:last-child{border-bottom:none}
-.varea{font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;padding:4px 7px;border-radius:3px;text-align:center}
+.varea{font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em;padding:4px 6px;border-radius:3px;text-align:center}
 .varea.personal{background:#f0e8f4;color:#6b3fa0}.varea.professional{background:#e8ecf4;color:var(--blue)}.varea.health{background:#e8f4f0;color:var(--green)}.varea.financial{background:#fef5e4;color:var(--amber)}
-.vgoal{font-size:14px;color:var(--ink);line-height:1.4}
-.db-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px 8px 0 0;overflow:hidden}
-.db-cell{background:var(--card);padding:1.1rem}
-.db-lbl{font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px}
-textarea{width:100%;padding:7px 9px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:4px;background:var(--paper);color:var(--ink);resize:vertical;min-height:80px;line-height:1.5}
+.vgoal{font-size:13px;color:var(--ink);line-height:1.4}
+
+/* DEBRIEF */
+.db-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px 8px 0 0;overflow:hidden}
+@media(min-width:500px){.db-grid{grid-template-columns:1fr 1fr}}
+.db-cell{background:var(--card);padding:1rem}
+.db-lbl{font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+textarea{width:100%;padding:8px 10px;font-size:14px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:4px;background:var(--paper);color:var(--ink);resize:vertical;min-height:80px;line-height:1.5;-webkit-appearance:none}
 textarea:focus{outline:none;border-color:var(--accent);background:var(--card)}
-.db-foot{background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;padding:1.1rem}
-select{font-family:'DM Mono',monospace;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:3px;background:var(--paper);color:var(--ink);cursor:pointer}
-.btn-accent{font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 13px;border-radius:4px;cursor:pointer;border:none;background:var(--accent);color:#fff;font-weight:500}
-.btn-accent:hover{opacity:.88}
-.btn-outline{font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 13px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--ink);font-weight:500}
-.btn-outline:hover{background:var(--border)}
-.export-panel{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-bottom:1rem}
+.db-foot{background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;padding:1rem}
+
+/* BUTTONS */
+.btn-accent{font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 14px;border-radius:6px;cursor:pointer;border:none;background:var(--accent);color:#fff;font-weight:500;-webkit-appearance:none}
+.btn-outline{font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 14px;border-radius:6px;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--ink);font-weight:500;-webkit-appearance:none}
+
+/* EXPORT */
+.export-panel{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.1rem;margin-bottom:.85rem}
 .export-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.export-desc{font-size:13px;color:var(--muted);margin-top:4px}
-.export-btns{display:flex;gap:8px;flex-shrink:0}
-.note-tag{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;background:#e8f4f0;color:var(--green);padding:2px 7px;border-radius:3px;margin-left:6px;vertical-align:middle}
-.setup-banner{background:#e8ecf4;border:1px solid #b5c4e0;border-radius:8px;padding:1.1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:12px;align-items:flex-start}
-.setup-banner .ti{font-size:18px;color:var(--blue);margin-top:1px;flex-shrink:0}
-.setup-steps{font-size:13px;color:var(--ink);line-height:1.9}
+.export-desc{font-size:12px;color:var(--muted);margin-top:3px}
+.export-btns{display:flex;gap:7px;flex-wrap:wrap}
+.note-tag{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;background:#e8f4f0;color:var(--green);padding:2px 6px;border-radius:3px;margin-left:5px}
+.setup-banner{background:#e8ecf4;border:1px solid #b5c4e0;border-radius:8px;padding:1rem;margin-bottom:1.25rem}
+.setup-title{font-weight:500;margin-bottom:6px;display:flex;align-items:center;gap:7px;font-size:14px}
+.setup-steps{font-size:13px;color:var(--ink);line-height:2}
 .setup-steps strong{font-weight:500}
-.setup-steps code{font-family:'DM Mono',monospace;font-size:12px;background:#d8e1f0;padding:1px 5px;border-radius:3px}
-.url-input-row{display:flex;gap:8px;margin-top:10px}
-.url-input-row input{flex:1;padding:7px 10px;font-size:13px;font-family:'DM Mono',monospace;border:1px solid var(--border);border-radius:4px;background:var(--paper);color:var(--ink)}
+.setup-steps code{font-family:'DM Mono',monospace;font-size:11px;background:#d8e1f0;padding:1px 5px;border-radius:3px}
+.url-input-row{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}
+.url-input-row input{flex:1;min-width:0;padding:8px 10px;font-size:13px;font-family:'DM Mono',monospace;border:1px solid var(--border);border-radius:6px;background:var(--paper);color:var(--ink);-webkit-appearance:none}
 .url-input-row input:focus{outline:none;border-color:var(--accent)}
 </style>
 </head>
 <body>
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Goals and Scorecard 2026</h2>
 
 <header>
-  <div class="logo">Goals<em>&</em>Scorecard <span style="font-size:.9rem;font-style:normal;color:var(--muted);font-family:'DM Mono',monospace">2026</span></div>
+  <div class="logo">Goals<em>&</em>Scorecard <span style="font-size:.8rem;font-style:normal;color:var(--muted);font-family:'DM Mono',monospace">2026</span></div>
   <div class="header-right">
     <div class="header-meta" id="hdr-meta"></div>
-    <div class="sync-status" id="sync-status" onclick="showTab('export')" title="Click to manage sync settings">
+    <div class="sync-status" id="sync-status" onclick="showTab('export')">
       <span class="sync-dot" id="sync-dot"></span>
       <span id="sync-label">not configured</span>
     </div>
@@ -121,51 +157,52 @@ select{font-family:'DM Mono',monospace;font-size:11px;padding:3px 6px;border:1px
 
 <nav>
   <button class="active" onclick="showTab('summary')">Summary</button>
-  <button onclick="showTab('weekly')">Weekly log</button>
-  <button onclick="showTab('quarterly')">Quarterly goals</button>
-  <button onclick="showTab('vision')">12-month vision</button>
+  <button onclick="showTab('weekly')">Weekly</button>
+  <button onclick="showTab('quarterly')">Goals</button>
+  <button onclick="showTab('vision')">Vision</button>
   <button onclick="showTab('debrief')">Debrief</button>
-  <button onclick="showTab('export')">Export &amp; sync</button>
+  <button onclick="showTab('export')">Sync</button>
 </nav>
 
 <main>
+
 <!-- SUMMARY -->
 <div id="tab-summary" class="section active">
   <div class="strip" id="s-strip"></div>
   <div class="sec-head"><span class="sec-title">Quarterly goals</span></div>
-  <table class="gt"><thead><tr><th>Goal</th><th>Deadline</th><th>Progress</th><th>Status</th></tr></thead><tbody id="s-goals"></tbody></table>
+  <table class="gt"><thead><tr><th>Goal</th><th style="display:none" class="desk-only">Deadline</th><th>Progress</th><th>Status</th></tr></thead><tbody id="s-goals"></tbody></table>
 </div>
 
 <!-- WEEKLY LOG -->
 <div id="tab-weekly" class="section">
   <div class="week-nav">
-    <button onclick="prevW()"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+    <button onclick="prevW()"><i class="ti ti-arrow-left"></i></button>
     <span class="wlbl" id="wlbl"></span>
-    <button onclick="nextW()"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>
-    <select id="wsel" onchange="jumpW(this.value)" style="margin-left:6px"></select>
+    <button onclick="nextW()"><i class="ti ti-arrow-right"></i></button>
+    <select id="wsel" onchange="jumpW(this.value)"></select>
   </div>
   <div class="log-grid" id="log-grid"></div>
-  <div style="margin-bottom:1.25rem">
-    <button class="add-btn" onclick="addMetric()"><i class="ti ti-plus" aria-hidden="true"></i> Add custom metric</button>
+  <div style="margin-bottom:1rem">
+    <button class="add-btn" onclick="addMetric()"><i class="ti ti-plus"></i> Add custom metric</button>
   </div>
   <div class="score-row">
     <div class="score-circle" id="s-circle"></div>
     <div class="score-detail" id="s-detail"></div>
-    <div style="margin-left:auto;text-align:center">
-      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Energy</div>
-      <input style="width:54px;padding:5px;font-size:14px;font-family:'DM Mono',monospace;border:1px solid var(--border);border-radius:4px;background:var(--paper);color:var(--ink);text-align:center" type="number" id="energy-in" min="1" max="10" placeholder="—" oninput="saveEnergy()">
-      <div style="font-size:11px;color:var(--muted);margin-top:2px;font-family:'DM Mono',monospace">/10</div>
+    <div class="energy-wrap">
+      <div class="energy-label">Energy</div>
+      <input class="energy-input" type="number" id="energy-in" min="1" max="10" placeholder="—" oninput="saveEnergy()">
+      <div style="font-size:10px;color:var(--muted);margin-top:2px;font-family:'DM Mono',monospace;text-align:center">/10</div>
     </div>
   </div>
   <div class="trend-wrap">
-    <div class="trend-lbl">12-week score trend</div>
-    <div style="position:relative;width:100%;height:170px"><canvas id="trend-chart" role="img" aria-label="Weekly score trend over 12 weeks">Weekly score trend.</canvas></div>
+    <div class="trend-lbl">12-week trend</div>
+    <div style="position:relative;width:100%;height:150px"><canvas id="trend-chart"></canvas></div>
   </div>
 </div>
 
 <!-- QUARTERLY GOALS -->
 <div id="tab-quarterly" class="section">
-  <div class="sec-head"><span class="sec-title">Quarterly goals</span><button class="btn-accent" onclick="addGoal()">+ Add goal</button></div>
+  <div class="sec-head"><span class="sec-title">Quarterly goals</span><button class="btn-accent" onclick="addGoal()">+ Add</button></div>
   <div id="q-list"></div>
 </div>
 
@@ -177,20 +214,20 @@ select{font-family:'DM Mono',monospace;font-size:11px;padding:3px 6px;border:1px
 
 <!-- DEBRIEF -->
 <div id="tab-debrief" class="section">
-  <div class="week-nav" style="margin-bottom:1.25rem">
-    <button onclick="prevWD()"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+  <div class="week-nav" style="margin-bottom:1rem">
+    <button onclick="prevWD()"><i class="ti ti-arrow-left"></i></button>
     <span class="wlbl" id="dlbl"></span>
-    <button onclick="nextWD()"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    <button onclick="nextWD()"><i class="ti ti-arrow-right"></i></button>
   </div>
   <div class="db-grid">
-    <div class="db-cell"><div class="db-lbl">Big win</div><textarea id="db-win" oninput="saveDB()" placeholder="What went well this week?"></textarea></div>
-    <div class="db-cell"><div class="db-lbl">Distraction</div><textarea id="db-dist" oninput="saveDB()" placeholder="What pulled focus away?"></textarea></div>
+    <div class="db-cell"><div class="db-lbl">Big win</div><textarea id="db-win" oninput="saveDB()" placeholder="What went well?"></textarea></div>
+    <div class="db-cell"><div class="db-lbl">Distraction</div><textarea id="db-dist" oninput="saveDB()" placeholder="What pulled focus?"></textarea></div>
   </div>
   <div class="db-foot">
     <div class="db-lbl">Focus next week</div>
-    <textarea id="db-focus" oninput="saveDB()" placeholder="Top priority for the coming week..."></textarea>
-    <div style="margin-top:.75rem;display:flex;align-items:center;gap:10px">
-      <span style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Overall feeling</span>
+    <textarea id="db-focus" oninput="saveDB()" placeholder="Top priority..."></textarea>
+    <div style="margin-top:.75rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Feeling</span>
       <select id="db-feel" onchange="saveDB()">
         <option value="">—</option><option>Energised</option><option>Solid</option><option>Mixed</option><option>Tough</option><option>Rough</option>
       </select>
@@ -198,85 +235,78 @@ select{font-family:'DM Mono',monospace;font-size:11px;padding:3px 6px;border:1px
   </div>
 </div>
 
-<!-- EXPORT & SYNC -->
+<!-- SYNC & EXPORT -->
 <div id="tab-export" class="section">
-  <div class="sec-head"><span class="sec-title">Export &amp; sync</span></div>
+  <div class="sec-head"><span class="sec-title">Sync &amp; export</span></div>
 
-  <!-- Google Sheets setup -->
-  <div class="setup-banner" id="sheets-setup-banner">
-    <i class="ti ti-brand-google" aria-hidden="true"></i>
-    <div>
-      <div style="font-weight:500;margin-bottom:4px">Connect Google Sheets</div>
-      <div class="setup-steps">
-        <strong>1.</strong> Open a new Google Sheet → <strong>Extensions → Apps Script</strong><br>
-        <strong>2.</strong> Paste the <code>Apps Script</code> code from Claude (the second artifact)<br>
-        <strong>3.</strong> <strong>Deploy → New deployment</strong> → Type: <em>Web app</em> → Execute as: <em>Me</em> → Access: <em>Anyone</em><br>
-        <strong>4.</strong> Copy the Web App URL and paste it below
-      </div>
-      <div class="url-input-row">
-        <input type="url" id="sheets-url-input" placeholder="https://script.google.com/macros/s/…/exec">
-      </div>
-      <div class="url-input-row" style="margin-top:6px">
-        <input type="password" id="sheets-token-input" placeholder="Secret token (from Apps Script)">
-        <button class="btn-accent" onclick="saveSheetURL()">Connect</button>
-        <button class="btn-outline" id="sheets-disconnect-btn" onclick="disconnectSheets()" style="display:none">Disconnect</button>
-      </div>
-      <div id="sheets-test-result" style="font-size:12px;margin-top:7px;font-family:'DM Mono',monospace"></div>
+  <div class="setup-banner">
+    <div class="setup-title"><i class="ti ti-brand-google" style="color:var(--blue)"></i> Google Sheets</div>
+    <div class="setup-steps">
+      <strong>1.</strong> Google Sheet → <strong>Extensions → Apps Script</strong><br>
+      <strong>2.</strong> Paste the Apps Script code → Save<br>
+      <strong>3.</strong> <strong>Deploy → New deployment</strong> → Web app → Anyone<br>
+      <strong>4.</strong> Paste URL + token below
     </div>
+    <div class="url-input-row">
+      <input type="url" id="sheets-url-input" placeholder="Web App URL">
+    </div>
+    <div class="url-input-row">
+      <input type="password" id="sheets-token-input" placeholder="Secret token">
+      <button class="btn-accent" onclick="saveSheetURL()">Connect</button>
+      <button class="btn-outline" id="sheets-disconnect-btn" onclick="disconnectSheets()" style="display:none">Disconnect</button>
+    </div>
+    <div id="sheets-test-result" style="font-size:12px;margin-top:7px;font-family:'DM Mono',monospace"></div>
   </div>
 
-  <!-- Sync status card -->
   <div class="export-panel" id="sync-info-panel" style="display:none">
     <div class="export-row">
       <div>
-        <div style="font-weight:500;font-size:14px">Google Sheets sync <span class="note-tag" id="sync-sheet-tag">connected</span></div>
+        <div style="font-weight:500">Google Sheets sync <span class="note-tag" id="sync-sheet-tag">connected</span></div>
         <div class="export-desc" id="sync-last-time">Last synced: —</div>
       </div>
       <div class="export-btns">
-        <button class="btn-accent" onclick="syncNow()"><i class="ti ti-refresh" aria-hidden="true" style="margin-right:4px"></i>Sync now</button>
-        <button class="btn-outline" onclick="pullFromSheets()"><i class="ti ti-cloud-download" aria-hidden="true" style="margin-right:4px"></i>Pull from sheet</button>
-        <button class="btn-outline" onclick="disconnectSheets()">Disconnect</button>
+        <button class="btn-accent" onclick="syncNow()"><i class="ti ti-refresh" style="margin-right:3px"></i>Sync</button>
+        <button class="btn-outline" onclick="pullFromSheets()"><i class="ti ti-cloud-download" style="margin-right:3px"></i>Pull</button>
       </div>
     </div>
   </div>
 
-  <!-- CSV / JSON exports -->
   <div class="export-panel">
     <div class="export-row">
-      <div><div style="font-weight:500;font-size:14px">Full backup <span class="note-tag">JSON</span></div><div class="export-desc">All data. Re-importable.</div></div>
-      <div class="export-btns"><button class="btn-accent" onclick="exportJSON()"><i class="ti ti-download" aria-hidden="true" style="margin-right:4px"></i>Download</button></div>
+      <div><div style="font-weight:500">Full backup <span class="note-tag">JSON</span></div><div class="export-desc">All data, re-importable</div></div>
+      <button class="btn-accent" onclick="exportJSON()"><i class="ti ti-download" style="margin-right:3px"></i>Download</button>
     </div>
   </div>
   <div class="export-panel">
     <div class="export-row">
-      <div><div style="font-weight:500;font-size:14px">Weekly log <span class="note-tag">CSV</span></div><div class="export-desc">All weeks, metrics, scores, energy.</div></div>
-      <div class="export-btns"><button class="btn-accent" onclick="exportWeeklyCSV()"><i class="ti ti-download" aria-hidden="true" style="margin-right:4px"></i>Download</button></div>
+      <div><div style="font-weight:500">Weekly log <span class="note-tag">CSV</span></div><div class="export-desc">All weeks + scores</div></div>
+      <button class="btn-accent" onclick="exportWeeklyCSV()"><i class="ti ti-download" style="margin-right:3px"></i>Download</button>
     </div>
   </div>
   <div class="export-panel">
     <div class="export-row">
-      <div><div style="font-weight:500;font-size:14px">Quarterly goals <span class="note-tag">CSV</span></div><div class="export-desc">Goals with progress and status.</div></div>
-      <div class="export-btns"><button class="btn-accent" onclick="exportGoalsCSV()"><i class="ti ti-download" aria-hidden="true" style="margin-right:4px"></i>Download</button></div>
+      <div><div style="font-weight:500">Goals <span class="note-tag">CSV</span></div><div class="export-desc">Progress + status</div></div>
+      <button class="btn-accent" onclick="exportGoalsCSV()"><i class="ti ti-download" style="margin-right:3px"></i>Download</button>
     </div>
   </div>
   <div class="export-panel">
     <div class="export-row">
-      <div><div style="font-weight:500;font-size:14px">Debriefs <span class="note-tag">CSV</span></div><div class="export-desc">All written weekly debrief entries.</div></div>
-      <div class="export-btns"><button class="btn-accent" onclick="exportDebriefsCSV()"><i class="ti ti-download" aria-hidden="true" style="margin-right:4px"></i>Download</button></div>
+      <div><div style="font-weight:500">Debriefs <span class="note-tag">CSV</span></div><div class="export-desc">All written entries</div></div>
+      <button class="btn-accent" onclick="exportDebriefsCSV()"><i class="ti ti-download" style="margin-right:3px"></i>Download</button>
     </div>
   </div>
   <div class="export-panel" style="border-color:#c8553d44">
     <div class="export-row">
-      <div><div style="font-weight:500;font-size:14px">Restore from backup</div><div class="export-desc">Upload a JSON backup to restore all data.</div></div>
-      <div class="export-btns"><label class="btn-outline" style="cursor:pointer"><i class="ti ti-upload" aria-hidden="true" style="margin-right:4px"></i>Import JSON<input type="file" accept=".json" style="display:none" onchange="importJSON(this)"></label></div>
+      <div><div style="font-weight:500">Restore backup</div><div class="export-desc">Upload a JSON file</div></div>
+      <label class="btn-outline" style="cursor:pointer"><i class="ti ti-upload" style="margin-right:3px"></i>Import<input type="file" accept=".json" style="display:none" onchange="importJSON(this)"></label>
     </div>
   </div>
 </div>
+
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-// ── DATA ──────────────────────────────────────────────────────
 const CORE_METRICS=[
   {key:'sleep',label:'Sleep 7h+',target:6,unit:'nights',core:true},
   {key:'applications',label:'Applications',target:3,unit:'',core:true},
@@ -292,7 +322,7 @@ function fmtD(d){if(!d)return'';try{return new Date(d).toLocaleDateString('en-GB
 function fmtW(d){return'w/c '+fmtD(d);}
 function mondayOf(t){const d=new Date(t);const dy=d.getDay();d.setDate(d.getDate()-(dy===0?6:dy-1));return d.toISOString().slice(0,10);}
 const todayWk=mondayOf(new Date().toISOString().slice(0,10));
-const todayIdx=Math.max(0,WEEKS.findIndex(w=>w>=todayWk));
+const todayIdx=Math.max(0,WEEKS.reduce((best,w,i)=>w<=todayWk?i:best,0));
 
 const DEFAULT_STATE={
   weekly:{'2026-05-19':{sleep:5,applications:4,gym:0,vitamins:0,qualification:0,run:2,energy:7}},
@@ -310,9 +340,7 @@ const DEFAULT_STATE={
     {id:6,area:'Personal',goal:'Successful move to Bristol'},
     {id:7,area:'Personal',goal:'EGIPY'},
   ],
-  debriefs:{},
-  customMetrics:[],
-  weekIdx:todayIdx,
+  debriefs:{},customMetrics:[],weekIdx:todayIdx,
 };
 
 let S;
@@ -324,24 +352,16 @@ let SHEETS_TOKEN=localStorage.getItem('sc2026_sheets_token')||'';
 let lastSyncedAt=localStorage.getItem('sc2026_last_synced')||'';
 let syncTimer=null;
 
-function save(){
-  try{localStorage.setItem('sc2026',JSON.stringify(S));}catch(e){}
-  scheduleSyncToSheets();
-}
+function save(){try{localStorage.setItem('sc2026',JSON.stringify(S));}catch(e){}scheduleSyncToSheets();}
 
-// ── SYNC ──────────────────────────────────────────────────────
 function setSyncStatus(state,label){
   const dot=document.getElementById('sync-dot');
   const lbl=document.getElementById('sync-label');
-  dot.className='sync-dot'+(state?' '+state:'');
-  lbl.textContent=label;
+  if(dot)dot.className='sync-dot'+(state?' '+state:'');
+  if(lbl)lbl.textContent=label;
 }
 
-function scheduleSyncToSheets(){
-  if(!SHEETS_URL)return;
-  clearTimeout(syncTimer);
-  syncTimer=setTimeout(syncNow,1500);
-}
+function scheduleSyncToSheets(){if(!SHEETS_URL||!SHEETS_TOKEN)return;clearTimeout(syncTimer);syncTimer=setTimeout(syncNow,1500);}
 
 async function syncNow(){
   if(!SHEETS_URL||!SHEETS_TOKEN)return;
@@ -352,11 +372,9 @@ async function syncNow(){
     const json=await res.json();
     if(json.ok){
       const t=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-      lastSyncedAt=t;
-      localStorage.setItem('sc2026_last_synced',t);
+      lastSyncedAt=t;localStorage.setItem('sc2026_last_synced',t);
       setSyncStatus('ok','synced '+t);
-      const el=document.getElementById('sync-last-time');
-      if(el)el.textContent='Last synced: '+t;
+      const el=document.getElementById('sync-last-time');if(el)el.textContent='Last synced: '+t;
     }else{setSyncStatus('error',json.error==='Unauthorised'?'wrong token':'sync error');}
   }catch(e){setSyncStatus('error','offline');}
 }
@@ -375,9 +393,16 @@ async function pullFromSheets(){
       if(d.debriefs)S.debriefs=d.debriefs;
       if(d.vision)S.vision=d.vision;
       if(d.customMetrics)S.customMetrics=d.customMetrics;
+      S.weekIdx=todayIdx;
       localStorage.setItem('sc2026',JSON.stringify(S));
       setSyncStatus('ok','pulled');
-      renderSummary();alert('Data pulled from Google Sheets.');
+      // Re-render everything
+      renderSummary();
+      renderWeekly();
+      renderQuarterly();
+      renderVision();
+      renderDebrief();
+      alert('Data pulled from Google Sheets.');
     }else{setSyncStatus('error','pull failed');}
   }catch(e){setSyncStatus('error','offline');}
 }
@@ -395,91 +420,77 @@ function saveSheetURL(){
   result.style.color='var(--amber)';result.textContent='Testing connection…';
   syncNow().then(()=>{
     const dot=document.getElementById('sync-dot');
-    if(dot.classList.contains('ok')){result.style.color='var(--green)';result.textContent='Connected successfully.';}
-    else{result.style.color='var(--red)';result.textContent='Could not connect — check URL and token.';}
+    if(dot&&dot.classList.contains('ok')){result.style.color='var(--green)';result.textContent='Connected successfully.';}
+    else{result.style.color='var(--red)';result.textContent='Check URL and token.';}
   });
 }
 
 function disconnectSheets(){
-  if(!confirm('Disconnect Google Sheets? Local data is unaffected.'))return;
+  if(!confirm('Disconnect? Local data unaffected.'))return;
   SHEETS_URL='';SHEETS_TOKEN='';
-  localStorage.removeItem('sc2026_sheets_url');
-  localStorage.removeItem('sc2026_sheets_token');
+  localStorage.removeItem('sc2026_sheets_url');localStorage.removeItem('sc2026_sheets_token');
   setSyncStatus('','not configured');updateSheetsUI();
 }
 
 function updateSheetsUI(){
   const connected=!!SHEETS_URL&&!!SHEETS_TOKEN;
-  document.getElementById('sync-info-panel').style.display=connected?'block':'none';
-  const urlInput=document.getElementById('sheets-url-input');
-  const tokenInput=document.getElementById('sheets-token-input');
-  if(urlInput)urlInput.value=SHEETS_URL||'';
-  if(tokenInput)tokenInput.value=SHEETS_TOKEN||'';
-  const discBtn=document.getElementById('sheets-disconnect-btn');
-  if(discBtn)discBtn.style.display=connected?'inline-flex':'none';
-  if(connected){setSyncStatus(lastSyncedAt?'ok':'','not yet synced');}
-  if(lastSyncedAt){
-    setSyncStatus('ok','synced '+lastSyncedAt);
-    const el=document.getElementById('sync-last-time');
-    if(el)el.textContent='Last synced: '+lastSyncedAt;
-  }
+  const panel=document.getElementById('sync-info-panel');if(panel)panel.style.display=connected?'block':'none';
+  const urlIn=document.getElementById('sheets-url-input');if(urlIn)urlIn.value=SHEETS_URL||'';
+  const tokIn=document.getElementById('sheets-token-input');if(tokIn)tokIn.value=SHEETS_TOKEN||'';
+  const discBtn=document.getElementById('sheets-disconnect-btn');if(discBtn)discBtn.style.display=connected?'inline-flex':'none';
+  if(connected&&lastSyncedAt){setSyncStatus('ok','synced '+lastSyncedAt);const el=document.getElementById('sync-last-time');if(el)el.textContent='Last synced: '+lastSyncedAt;}
+  else if(connected){setSyncStatus('','not yet synced');}
 }
 
-// ── METRICS ───────────────────────────────────────────────────
 function allMetrics(){return[...CORE_METRICS,...S.customMetrics];}
 function activeMetrics(wk){return allMetrics().filter(m=>m.core||!m.addedWeek||(wk>=m.addedWeek));}
-
-function weekScore(wk){
-  const d=S.weekly[wk]||{};const metrics=activeMetrics(wk);
-  let tot=0,mx=0;metrics.forEach(m=>{mx+=m.target;tot+=Math.min(d[m.key]||0,m.target);});
-  return mx?Math.round(tot/mx*100):0;
-}
+function weekScore(wk){const d=S.weekly[wk]||{};const metrics=activeMetrics(wk);let tot=0,mx=0;metrics.forEach(m=>{mx+=m.target;tot+=Math.min(d[m.key]||0,m.target);});return mx?Math.round(tot/mx*100):0;}
 function scoreCol(p){return p>=80?'var(--green)':p>=50?'var(--amber)':'var(--red)';}
 function badgeClass(s){return s==='Good'?'b-good':s==='On Track'?'b-track':s==='Behind'?'b-behind':'b-risk';}
 
-// ── SUMMARY ───────────────────────────────────────────────────
 function renderSummary(){
   const wk=WEEKS[S.weekIdx];const p=weekScore(wk);
   const onT=S.goals.filter(g=>g.status==='Good'||g.status==='On Track').length;
-  document.getElementById('s-strip').innerHTML=`
-    <div class="strip-cell"><div class="lbl">Week score</div><div class="val" style="color:${scoreCol(p)}">${p}<span style="font-size:.9rem;color:var(--muted)">%</span></div><div class="sub">${fmtW(wk)}</div></div>
-    <div class="strip-cell"><div class="lbl">Goals on track</div><div class="val">${onT}<span style="font-size:.9rem;color:var(--muted)">/${S.goals.length}</span></div><div class="sub">this quarter</div></div>
-    <div class="strip-cell"><div class="lbl">Vision items</div><div class="val">${S.vision.length}</div><div class="sub">12-month</div></div>
-    <div class="strip-cell"><div class="lbl">Energy</div><div class="val">${(S.weekly[wk]||{}).energy||'—'}</div><div class="sub">self-rated /10</div></div>`;
+  const strip=document.getElementById('s-strip');
+  if(strip)strip.innerHTML=`
+    <div class="strip-cell"><div class="lbl">Week score</div><div class="val" style="color:${scoreCol(p)}">${p}<span style="font-size:.85rem;color:var(--muted)">%</span></div><div class="sub">${fmtW(wk)}</div></div>
+    <div class="strip-cell"><div class="lbl">On track</div><div class="val">${onT}<span style="font-size:.85rem;color:var(--muted)">/${S.goals.length}</span></div><div class="sub">goals</div></div>
+    <div class="strip-cell"><div class="lbl">Vision</div><div class="val">${S.vision.length}</div><div class="sub">items</div></div>
+    <div class="strip-cell"><div class="lbl">Energy</div><div class="val">${(S.weekly[wk]||{}).energy||'—'}</div><div class="sub">/10</div></div>`;
   let rows='';
   S.goals.forEach(g=>{
     const col=g.progress>=75?'var(--green)':g.progress>=40?'var(--amber)':'var(--red)';
     rows+=`<tr><td><div class="gname">${g.goal}</div><div class="garea">${g.area}</div></td>
-    <td style="font-size:12px;font-family:'DM Mono',monospace;color:var(--muted)">${fmtD(g.deadline)||'Ongoing'}</td>
     <td><div class="pbar"><div class="pfill" style="width:${g.progress}%;background:${col}"></div></div><div class="plbl">${g.progress}%</div></td>
     <td><span class="badge ${badgeClass(g.status)}">${g.status}</span></td></tr>`;
   });
-  document.getElementById('s-goals').innerHTML=rows;
+  const tbody=document.getElementById('s-goals');if(tbody)tbody.innerHTML=rows;
 }
 
-// ── WEEKLY LOG ────────────────────────────────────────────────
 function renderWeekly(){
   const wk=WEEKS[S.weekIdx];const d=S.weekly[wk]||{};
-  document.getElementById('wlbl').textContent=fmtW(wk);
-  document.getElementById('wsel').value=wk;
+  const wlbl=document.getElementById('wlbl');if(wlbl)wlbl.textContent=fmtW(wk);
+  const wsel=document.getElementById('wsel');if(wsel)wsel.value=wk;
   const metrics=activeMetrics(wk);let cells='';
   metrics.forEach(m=>{
     const actual=d[m.key]||0;const pct=Math.min(100,Math.round(actual/m.target*100));
     const col=pct>=100?'var(--green)':pct>=50?'var(--amber)':'var(--red)';
-    const delBtn=m.core?'':`<button class="remove-metric" onclick="removeMetric('${m.key}')" title="Remove"><i class="ti ti-x" style="font-size:11px"></i></button>`;
+    const delBtn=m.core?'':`<button class="remove-metric" onclick="removeMetric('${m.key}')"><i class="ti ti-x" style="font-size:11px"></i></button>`;
     cells+=`<div class="log-cell"><div class="log-metric"><span>${m.label}</span>${delBtn}</div>
-    <div class="log-row"><input class="log-input" type="number" min="0" max="99" value="${actual}" oninput="updateM('${wk}','${m.key}',this.value)"><span class="log-tgt">/ ${m.target}</span></div>
+    <div class="log-row"><input class="log-input" type="number" inputmode="numeric" min="0" max="99" value="${actual}" oninput="updateM('${wk}','${m.key}',this.value)"><span class="log-tgt">/${m.target}</span></div>
     <div class="sbar"><div class="sfill" style="width:${pct}%;background:${col}"></div></div></div>`;
   });
-  document.getElementById('log-grid').innerHTML=cells;
+  const grid=document.getElementById('log-grid');if(grid)grid.innerHTML=cells;
   const p=weekScore(wk);const tot=metrics.reduce((a,m)=>a+Math.min(d[m.key]||0,m.target),0);const mx=metrics.reduce((a,m)=>a+m.target,0);
   const col=scoreCol(p);
-  const sc=document.getElementById('s-circle');sc.style.borderColor=col;sc.style.color=col;
-  sc.innerHTML=`${p}<span style="font-size:.65rem">%</span>`;
-  document.getElementById('s-detail').innerHTML=`<strong>${tot}</strong> of ${mx} points<br><span style="color:var(--muted)">Week ${S.weekIdx+1} of 52</span>`;
-  document.getElementById('energy-in').value=(S.weekly[wk]||{}).energy||'';
+  const sc=document.getElementById('s-circle');
+  if(sc){sc.style.borderColor=col;sc.style.color=col;sc.innerHTML=`${p}<span style="font-size:.6rem">%</span>`;}
+  const sd=document.getElementById('s-detail');
+  if(sd)sd.innerHTML=`<strong>${tot}</strong> of ${mx} pts<br><span style="color:var(--muted)">Week ${S.weekIdx+1} of 52</span>`;
+  const ein=document.getElementById('energy-in');if(ein)ein.value=(S.weekly[wk]||{}).energy||'';
   renderTrend();
 }
+
 function updateM(wk,key,val){if(!S.weekly[wk])S.weekly[wk]={};S.weekly[wk][key]=parseInt(val)||0;save();renderWeekly();renderSummary();}
 function saveEnergy(){const wk=WEEKS[S.weekIdx];if(!S.weekly[wk])S.weekly[wk]={};S.weekly[wk].energy=parseInt(document.getElementById('energy-in').value)||0;save();}
 function prevW(){if(S.weekIdx>0){S.weekIdx--;renderWeekly();}}
@@ -489,65 +500,60 @@ function addMetric(){
   const label=prompt('Metric name:');if(!label)return;
   const targetStr=prompt('Weekly target (number):');const target=parseInt(targetStr);
   if(!target||target<1){alert('Enter a valid target.');return;}
-  const unit=prompt('Unit label (e.g. "sessions") or leave blank:')||'';
+  const unit=prompt('Unit label or leave blank:')||'';
   S.customMetrics.push({key:'custom_'+Date.now(),label,target,unit,core:false,addedWeek:WEEKS[S.weekIdx]});
   save();renderWeekly();
 }
-function removeMetric(key){
-  if(!confirm('Remove this metric from future weeks?'))return;
-  S.customMetrics=S.customMetrics.filter(m=>m.key!==key);save();renderWeekly();
-}
+function removeMetric(key){if(!confirm('Remove this metric?'))return;S.customMetrics=S.customMetrics.filter(m=>m.key!==key);save();renderWeekly();}
 
-// ── TREND ─────────────────────────────────────────────────────
 let tChart=null;
 function renderTrend(){
   const canvas=document.getElementById('trend-chart');if(!canvas)return;
   const start=Math.max(0,S.weekIdx-11);const labels=[],data=[];
   for(let i=start;i<=S.weekIdx;i++){labels.push(WEEKS[i].slice(5));data.push(weekScore(WEEKS[i]));}
   if(tChart){tChart.destroy();tChart=null;}
-  tChart=new Chart(canvas,{type:'line',data:{labels,datasets:[{label:'Score',data,borderColor:'#c8553d',backgroundColor:'rgba(200,85,61,.07)',tension:.35,pointRadius:3,pointBackgroundColor:'#c8553d',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%',font:{family:'monospace',size:10}},grid:{color:'rgba(0,0,0,.05)'}},x:{ticks:{font:{family:'monospace',size:10}},grid:{display:false}}}}});
+  tChart=new Chart(canvas,{type:'line',data:{labels,datasets:[{label:'Score',data,borderColor:'#c8553d',backgroundColor:'rgba(200,85,61,.07)',tension:.35,pointRadius:3,pointBackgroundColor:'#c8553d',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%',font:{family:'monospace',size:9}},grid:{color:'rgba(0,0,0,.05)'}},x:{ticks:{font:{family:'monospace',size:9}},grid:{display:false}}}}});
 }
 
-// ── QUARTERLY ─────────────────────────────────────────────────
 function renderQuarterly(){
   let html='';
   S.goals.forEach((g,i)=>{
     const p=g.progress;const col=p>=75?'var(--green)':p>=40?'var(--amber)':'var(--red)';
     const opts=['Good','On Track','Needs Attention','Behind','At Risk','Done'].map(o=>`<option ${g.status===o?'selected':''}>${o}</option>`).join('');
-    html+=`<div class="goal-card"><div class="goal-card-head"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">${g.area}</span><select onchange="S.goals[${i}].status=this.value;save();renderQuarterly();renderSummary()">${opts}</select></div><button class="del-btn" onclick="S.goals.splice(${i},1);save();renderQuarterly();renderSummary()"><i class="ti ti-x"></i></button></div>
-    <div style="font-size:15px;font-weight:500;margin-bottom:3px">${g.goal}</div>
+    html+=`<div class="goal-card"><div class="goal-card-head"><div style="display:flex;align-items:center;gap:7px"><span style="font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">${g.area}</span><select onchange="S.goals[${i}].status=this.value;save();renderQuarterly();renderSummary()">${opts}</select></div><button class="del-btn" onclick="S.goals.splice(${i},1);save();renderQuarterly();renderSummary()"><i class="ti ti-x"></i></button></div>
+    <div style="font-size:14px;font-weight:500;margin-bottom:3px">${g.goal}</div>
     <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);margin-bottom:10px">Deadline: ${fmtD(g.deadline)||'Ongoing'}</div>
-    <div style="display:flex;align-items:center;gap:10px"><div class="pbar" style="flex:1;height:5px"><div class="pfill" style="width:${p}%;background:${col}"></div></div><input class="prog-input" type="number" min="0" max="100" value="${p}" oninput="S.goals[${i}].progress=parseInt(this.value)||0;save();renderQuarterly();renderSummary()"><span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace">%</span></div></div>`;
+    <div style="display:flex;align-items:center;gap:10px"><div class="pbar" style="flex:1;height:5px"><div class="pfill" style="width:${p}%;background:${col}"></div></div><input class="prog-input" type="number" inputmode="numeric" min="0" max="100" value="${p}" oninput="S.goals[${i}].progress=parseInt(this.value)||0;save();renderQuarterly();renderSummary()"><span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace">%</span></div></div>`;
   });
-  html+=`<button class="add-btn" onclick="addGoal()"><i class="ti ti-plus" aria-hidden="true"></i> Add goal</button>`;
-  document.getElementById('q-list').innerHTML=html;
+  html+=`<button class="add-btn" onclick="addGoal()"><i class="ti ti-plus"></i> Add goal</button>`;
+  const el=document.getElementById('q-list');if(el)el.innerHTML=html;
 }
 function addGoal(){
   const goal=prompt('Goal name:');if(!goal)return;
-  const area=prompt('Area (Career / Health / Networking / Professional / Financial / Personal):')||'Career';
+  const area=prompt('Area (Career/Health/Networking/Professional/Financial/Personal):')||'Career';
   const deadline=prompt('Deadline (YYYY-MM-DD) or leave blank:')||'';
   S.goals.push({id:Date.now(),area,goal,deadline,progress:0,status:'On Track'});save();renderQuarterly();renderSummary();
 }
 
-// ── VISION ────────────────────────────────────────────────────
 function renderVision(){
   const amap={Professional:'professional',Health:'health',Financial:'financial',Personal:'personal',Career:'professional'};
-  document.getElementById('v-list').innerHTML=S.vision.map((v,i)=>`
-    <div class="vision-item"><span class="varea ${amap[v.area]||'professional'}">${v.area}</span><span class="vgoal">${v.goal}</span>
-    <button class="del-btn" onclick="S.vision.splice(${i},1);save();renderVision()"><i class="ti ti-x"></i></button></div>`).join('');
+  const el=document.getElementById('v-list');
+  if(el)el.innerHTML=S.vision.map((v,i)=>`<div class="vision-item"><span class="varea ${amap[v.area]||'professional'}">${v.area}</span><span class="vgoal">${v.goal}</span><button class="del-btn" onclick="S.vision.splice(${i},1);save();renderVision()"><i class="ti ti-x"></i></button></div>`).join('');
 }
 function addVision(){
   const goal=prompt('12-month vision goal:');if(!goal)return;
-  const area=prompt('Area (Career / Health / Personal / Financial / Professional):')||'Personal';
+  const area=prompt('Area (Career/Health/Personal/Financial/Professional):')||'Personal';
   S.vision.push({id:Date.now(),area,goal});save();renderVision();
 }
 
-// ── DEBRIEF ───────────────────────────────────────────────────
 function renderDebrief(){
-  const wk=WEEKS[S.weekIdx];document.getElementById('dlbl').textContent=fmtW(wk);
+  const wk=WEEKS[S.weekIdx];
+  const dlbl=document.getElementById('dlbl');if(dlbl)dlbl.textContent=fmtW(wk);
   const d=S.debriefs[wk]||{};
-  document.getElementById('db-win').value=d.win||'';document.getElementById('db-dist').value=d.dist||'';
-  document.getElementById('db-focus').value=d.focus||'';document.getElementById('db-feel').value=d.feeling||'';
+  const win=document.getElementById('db-win');if(win)win.value=d.win||'';
+  const dist=document.getElementById('db-dist');if(dist)dist.value=d.dist||'';
+  const focus=document.getElementById('db-focus');if(focus)focus.value=d.focus||'';
+  const feel=document.getElementById('db-feel');if(feel)feel.value=d.feeling||'';
 }
 function saveDB(){
   const wk=WEEKS[S.weekIdx];
@@ -557,7 +563,6 @@ function saveDB(){
 function prevWD(){if(S.weekIdx>0){S.weekIdx--;renderDebrief();}}
 function nextWD(){if(S.weekIdx<WEEKS.length-1){S.weekIdx++;renderDebrief();}}
 
-// ── EXPORT ────────────────────────────────────────────────────
 function dlFile(name,content,mime){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:mime}));a.download=name;a.click();}
 function escCSV(v){if(v==null)return'';const s=String(v);return s.includes(',')||s.includes('"')||s.includes('\n')?`"${s.replace(/"/g,'""')}"`:`${s}`;}
 function exportJSON(){dlFile('scorecard-2026-backup.json',JSON.stringify({...S,exportedAt:new Date().toISOString()},null,2),'application/json');}
@@ -575,7 +580,7 @@ function exportWeeklyCSV(){
 }
 function exportGoalsCSV(){
   const h=['Area','Goal','Deadline','Progress %','Status'];
-  dlFile('scorecard-2026-goals.csv',[h,...S.goals.map(g=>[escCSV(g.area),escCSV(g.goal),escCSV(g.deadline||'Ongoing'),g.progress,escCSV(g.status)])].map(r=>r.join?r.join(','):r).join('\n'),'text/csv');
+  dlFile('scorecard-2026-goals.csv',[h.join(','),...S.goals.map(g=>[escCSV(g.area),escCSV(g.goal),escCSV(g.deadline||'Ongoing'),g.progress,escCSV(g.status)].join(','))].join('\n'),'text/csv');
 }
 function exportDebriefsCSV(){
   const rows=[['Week','Big win','Distraction','Focus next week','Feeling'].join(',')];
@@ -588,31 +593,33 @@ function importJSON(input){
   reader.onload=e=>{
     try{const data=JSON.parse(e.target.result);if(!data.goals||!data.weekly){alert('Invalid file.');return;}
     if(!confirm('Replace all data?'))return;
-    delete data.exportedAt;delete data.version;Object.assign(S,data);S.weekIdx=todayIdx;save();renderSummary();alert('Restored.');}catch(err){alert('Could not read file.');}
+    delete data.exportedAt;delete data.version;Object.assign(S,data);S.weekIdx=todayIdx;save();
+    renderSummary();renderWeekly();renderQuarterly();renderVision();renderDebrief();
+    alert('Restored.');}catch(err){alert('Could not read file.');}
   };reader.readAsText(file);input.value='';
 }
 
-// ── NAV ───────────────────────────────────────────────────────
 function showTab(t){
   const tabs=['summary','weekly','quarterly','vision','debrief','export'];
   document.querySelectorAll('nav button').forEach((b,i)=>b.classList.toggle('active',tabs[i]===t));
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById('tab-'+t).classList.add('active');
+  const el=document.getElementById('tab-'+t);if(el)el.classList.add('active');
   if(t==='weekly')renderWeekly();
   if(t==='quarterly')renderQuarterly();
   if(t==='vision')renderVision();
   if(t==='debrief')renderDebrief();
 }
 
-// ── INIT ──────────────────────────────────────────────────────
+// INIT
 const sel=document.getElementById('wsel');
 WEEKS.forEach(w=>{const o=document.createElement('option');o.value=w;o.textContent=fmtW(w);sel.appendChild(o);});
 sel.value=WEEKS[S.weekIdx];
 const now=new Date();
-document.getElementById('hdr-meta').innerHTML=`${now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})}<br>Week ${S.weekIdx+1} of 52`;
+const hm=document.getElementById('hdr-meta');
+if(hm)hm.innerHTML=`${now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})}<br>Week ${S.weekIdx+1} of 52`;
 updateSheetsUI();
 renderSummary();
-if(SHEETS_URL)setTimeout(syncNow,2000);
+if(SHEETS_URL&&SHEETS_TOKEN)setTimeout(syncNow,2000);
 </script>
 </body>
 </html>
